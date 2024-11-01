@@ -1,7 +1,6 @@
 import {
     pgEnum,
 } from 'drizzle-orm/pg-core';
-import { json } from 'stream/consumers';
 
 export const statusEnum = pgEnum('status', ['active', 'inactive', 'archived']);
 
@@ -48,7 +47,7 @@ export async function getShippings(
 
 export function addShipping(shipping: IShipping, onPostAction: void) {
     fetch(
-        'http://localhost:8000/api/envios',
+        'https://pidya.es/gestion_envios/api/envios',
         {
             method: 'POST',
             headers: {
@@ -58,4 +57,24 @@ export function addShipping(shipping: IShipping, onPostAction: void) {
             body: JSON.stringify(shipping)
         }
     ).then((_) => onPostAction)
+}
+
+export async function getShippingFromClient(
+    clientName: string
+): Promise<{
+    shipping: IShipping;
+}> {
+    let jsonResponse = await fetch(
+        `http://localhost:8000/api/envios/client/${clientName}`,
+        {
+            method: 'GET',
+            headers: { "Access-Control-Allow-Origin": "*" }
+        }
+    ).then((response) => response.json())
+
+    return new Promise((resolve, reject) => {
+        resolve({
+            shipping: jsonResponse as IShipping
+        })
+    });
 }
