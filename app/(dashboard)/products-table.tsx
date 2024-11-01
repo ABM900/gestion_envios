@@ -60,7 +60,7 @@ export function ProductsTable({
                             <TableHead className="hidden md:table-cell">Importe</TableHead>
                             <TableHead className="hidden md:table-cell">Destino del envío</TableHead>
                             <TableHead className="hidden md:table-cell">Receptor del envío</TableHead>
-                            <TableHead className="hidden md:table-cell">Teléfono</TableHead>
+                            <TableHead className="hidden md:table-cell">Teléfono del destinatario</TableHead>
                             <TableHead className="hidden md:table-cell">Dirección del envío</TableHead>
                         </TableRow>
                     </TableHeader>
