@@ -58,7 +58,6 @@ export default function ShippingPage({
 		router.push(`/?offset=0`, { scroll: false });
 	}
 
-	if (!dataLoaded) return <></>
 	return (
 		<Tabs defaultValue="all">
 			<div className="flex items-center">
