@@ -29,7 +29,7 @@ export async function getShippings(
     totalProducts: number;
 }> {
     let jsonResponse = await fetch(
-        `http://localhost:8000/api/envios/offset/${offset}`,
+        `https://pidya.es/gestion_envios/api/envios/offset/${offset}`,
         {
             method: 'GET',
             headers: { "Access-Control-Allow-Origin": "*" }
@@ -65,7 +65,7 @@ export async function getShippingFromClient(
     shipping: IShipping;
 }> {
     let jsonResponse = await fetch(
-        `http://localhost:8000/api/envios/client/${clientName}`,
+        `https://pidya.es/gestion_envios/api/envios/client/${clientName}`,
         {
             method: 'GET',
             headers: { "Access-Control-Allow-Origin": "*" }
