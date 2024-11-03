@@ -74,11 +74,11 @@ export function ProductsTable({
             <CardFooter>
                 <form className="flex items-center w-full justify-between">
                     <div className="text-xs text-muted-foreground">
-                        Showing{' '}
+                        Mostrando{' '}
                         <strong>
                             {Math.min(offset, totalProducts)}-{offset}
                         </strong>{' '}
-                        of <strong>{totalProducts}</strong> products
+                        de <strong>{totalProducts}</strong> envíos
                     </div>
                     <div className="flex">
                         <Button
