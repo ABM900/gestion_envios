@@ -56,12 +56,12 @@ export function ProductsTable({
                             <TableHead>Nombre de cliente</TableHead>
                             <TableHead>Peso del envío</TableHead>
                             <TableHead>Fecha del envío</TableHead>
-                            <TableHead className="hidden md:table-cell">Producto enviado</TableHead>
-                            <TableHead className="hidden md:table-cell">Importe</TableHead>
-                            <TableHead className="hidden md:table-cell">Destino del envío</TableHead>
-                            <TableHead className="hidden md:table-cell">Receptor del envío</TableHead>
-                            <TableHead className="hidden md:table-cell">Teléfono del destinatario</TableHead>
-                            <TableHead className="hidden md:table-cell">Dirección del envío</TableHead>
+                            <TableHead>Producto enviado</TableHead>
+                            <TableHead>Importe</TableHead>
+                            <TableHead>Destino del envío</TableHead>
+                            <TableHead>Receptor del envío</TableHead>
+                            <TableHead>Teléfono del destinatario</TableHead>
+                            <TableHead>Dirección del envío</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>

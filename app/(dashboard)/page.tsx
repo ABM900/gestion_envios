@@ -59,75 +59,77 @@ export default function ShippingPage({
 	}
 
 	return (
-		<Tabs defaultValue="all">
-			<div className="flex items-center">
-				<div className="ml-auto flex items-center gap-2">
-					<Button size="sm" className="h-8 gap-1" type='button' onClick={() => setModalOpen(true)}>
-						<PlusCircle className="h-3.5 w-3.5" />
-						<span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-							Añadir envío
-						</span>
-					</Button>
+		<div className='overflow-hidden'>
+			<Tabs defaultValue="all">
+				<div className="flex items-center">
+					<div className="ml-auto flex items-center gap-2">
+						<Button size="sm" className="h-8 gap-1" type='button' onClick={() => setModalOpen(true)}>
+							<PlusCircle className="h-3.5 w-3.5" />
+							<span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+								Añadir envío
+							</span>
+						</Button>
+					</div>
 				</div>
-			</div>
-			<TabsContent value="all">
-				<ProductsTable
-					shippings={shippingData.shippings}
-					offset={shippingData.newOffset ?? 0}
-					totalProducts={shippingData.totalProducts}
-				/>
-			</TabsContent>
-			<Modal
-				isOpen={openModal}
-				onClose={() => setModalOpen(false)}
-			>
-				<h1 style={{ fontSize: '30px', fontWeight: 'bold' }}>Añadir envío</h1>
-				<div className="mt-3 grid grid-cols-2 gap-4">
-					<div>
-						<label htmlFor="client_name">Nombre del cliente</label>
-						<Input id="client_name" className="mt-1" onChange={(text) => setNewShipping({ ...newShipping, ['Env_clientName']: text.target.value })} />
+				<TabsContent value="all">
+					<ProductsTable
+						shippings={shippingData.shippings}
+						offset={shippingData.newOffset ?? 0}
+						totalProducts={shippingData.totalProducts}
+					/>
+				</TabsContent>
+				<Modal
+					isOpen={openModal}
+					onClose={() => setModalOpen(false)}
+				>
+					<h1 style={{ fontSize: '30px', fontWeight: 'bold' }}>Añadir envío</h1>
+					<div className="mt-3 grid grid-cols-2 gap-4">
+						<div>
+							<label htmlFor="client_name">Nombre del cliente</label>
+							<Input id="client_name" className="mt-1" onChange={(text) => setNewShipping({ ...newShipping, ['Env_clientName']: text.target.value })} />
+						</div>
+						<div>
+							<label htmlFor="client_phone">Teléfono del cliente</label>
+							<Input type="number" id="client_phone" className="mt-1" onChange={(text) => setNewShipping({ ...newShipping, ['Env_phone']: text.target.value })} />
+						</div>
+						<div>
+							<label htmlFor="receiver_name">Nombre del receptor</label>
+							<Input id="receriver_name" className="mt-1" onChange={(text) => setNewShipping({ ...newShipping, ['Env_receiver']: text.target.value })} />
+						</div>
+						<div>
+							<label htmlFor="shipping_date">Fecha de envío</label>
+							<Input type="date" id="shipping_date" className="mt-1" onChange={(text) => setNewShipping({ ...newShipping, ['Env_date']: text.target.value })} />
+						</div>
+						<div className='col-span-2'>
+							<label htmlFor="product_name">Nombre del producto</label>
+							<Input id="product_name" className="mt-1" onChange={(text) => setNewShipping({ ...newShipping, ['Env_product']: text.target.value })} />
+						</div>
+						<div>
+							<label htmlFor="product_weight">Peso del producto</label>
+							<Input type="number" id="product_weight" className="mt-1" onChange={(text) => setNewShipping({ ...newShipping, ['Env_weight']: Number(text.target.value) })} />
+						</div>
+						<div>
+							<label htmlFor="product_amount">Importe</label>
+							<Input type='number' id="product_amount" className="mt-1" onChange={(text) => setNewShipping({ ...newShipping, ['Env_amount']: Number(text.target.value) })} />
+						</div>
+						<div>
+							<label htmlFor="destination">Destino</label>
+							<Input id="destination" className="mt-1" onChange={(text) => setNewShipping({ ...newShipping, ['Env_destination']: text.target.value })} />
+						</div>
+						<div>
+							<label htmlFor="address">Dirección</label>
+							<Input id="address" className="mt-1" onChange={(text) => setNewShipping({ ...newShipping, ['Env_address']: text.target.value })} />
+						</div>
+						<Button type='submit' className='col-span-2 gap-2' onClick={() => addShipping(newShipping, onAddShipping())}>
+							<PlusCircle />
+							<span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+								Crear
+							</span>
+						</Button>
 					</div>
-					<div>
-						<label htmlFor="client_phone">Teléfono del cliente</label>
-						<Input type="number" id="client_phone" className="mt-1" onChange={(text) => setNewShipping({ ...newShipping, ['Env_phone']: text.target.value })} />
-					</div>
-					<div>
-						<label htmlFor="receiver_name">Nombre del receptor</label>
-						<Input id="receriver_name" className="mt-1" onChange={(text) => setNewShipping({ ...newShipping, ['Env_receiver']: text.target.value })} />
-					</div>
-					<div>
-						<label htmlFor="shipping_date">Fecha de envío</label>
-						<Input type="date" id="shipping_date" className="mt-1" onChange={(text) => setNewShipping({ ...newShipping, ['Env_date']: text.target.value })} />
-					</div>
-					<div className='col-span-2'>
-						<label htmlFor="product_name">Nombre del producto</label>
-						<Input id="product_name" className="mt-1" onChange={(text) => setNewShipping({ ...newShipping, ['Env_product']: text.target.value })} />
-					</div>
-					<div>
-						<label htmlFor="product_weight">Peso del producto</label>
-						<Input type="number" id="product_weight" className="mt-1" onChange={(text) => setNewShipping({ ...newShipping, ['Env_weight']: Number(text.target.value) })} />
-					</div>
-					<div>
-						<label htmlFor="product_amount">Importe</label>
-						<Input type='number' id="product_amount" className="mt-1" onChange={(text) => setNewShipping({ ...newShipping, ['Env_amount']: Number(text.target.value) })} />
-					</div>
-					<div>
-						<label htmlFor="destination">Destino</label>
-						<Input id="destination" className="mt-1" onChange={(text) => setNewShipping({ ...newShipping, ['Env_destination']: text.target.value })} />
-					</div>
-					<div>
-						<label htmlFor="address">Dirección</label>
-						<Input id="address" className="mt-1" onChange={(text) => setNewShipping({ ...newShipping, ['Env_address']: text.target.value })} />
-					</div>
-					<Button type='submit' className='col-span-2 gap-2' onClick={() => addShipping(newShipping, onAddShipping())}>
-						<PlusCircle />
-						<span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-							Crear
-						</span>
-					</Button>
-				</div>
-			</Modal>
-			<Toaster />
-		</Tabs>
+				</Modal>
+				<Toaster />
+			</Tabs>
+		</div>
 	);
 }
