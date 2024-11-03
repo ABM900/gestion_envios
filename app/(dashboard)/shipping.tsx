@@ -83,13 +83,13 @@ export function Shipping({ shipping }: { shipping: IShipping }) {
 
 			</TableCell>
 			<TableCell>{shipping.Env_weight}</TableCell>
-			<TableCell className="hidden md:table-cell">{shipping.Env_date}</TableCell>
-			<TableCell className="hidden md:table-cell">{shipping.Env_product}</TableCell>
-			<TableCell className="hidden md:table-cell">{shipping.Env_amount} €</TableCell>
-			<TableCell className="hidden md:table-cell">{shipping.Env_destination}</TableCell>
-			<TableCell className="hidden md:table-cell">{shipping.Env_receiver}</TableCell>
-			<TableCell className="hidden md:table-cell">{shipping.Env_phone}</TableCell>
-			<TableCell className="hidden md:table-cell">{shipping.Env_address}</TableCell>
+			<TableCell>{shipping.Env_date}</TableCell>
+			<TableCell>{shipping.Env_product}</TableCell>
+			<TableCell>{shipping.Env_amount} €</TableCell>
+			<TableCell>{shipping.Env_destination}</TableCell>
+			<TableCell>{shipping.Env_receiver}</TableCell>
+			<TableCell>{shipping.Env_phone}</TableCell>
+			<TableCell>{shipping.Env_address}</TableCell>
 		</TableRow>
 	);
 }
