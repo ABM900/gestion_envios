@@ -19,11 +19,6 @@ export default function ShippingPage({
 	searchParams: { q: string; offset: string };
 }) {
 	const { toast } = useToast();
-	const form = useForm({
-		defaultValues: {
-			control: ''
-		}
-	});
 	let router = useRouter();
 	const [openModal, setModalOpen] = useState<boolean>(false);
 	const [newShipping, setNewShipping] = useState<IShipping>({
@@ -53,6 +48,7 @@ export default function ShippingPage({
 
 	useEffect(() => {
 		getShippings(search, Number(offset)).then(result => {
+			console.log("Hola");
 			setShippingData(result)
 			setDataLoaded(true)
 		});
