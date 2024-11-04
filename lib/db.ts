@@ -32,7 +32,10 @@ export async function getShippings(
         `https://pidya.es/gestion_envios/api/envios/offset/${offset}`,
         {
             method: 'GET',
-            headers: { "Access-Control-Allow-Origin": "*" }
+            headers: { 
+                "Access-Control-Allow-Origin": "*",
+                'Cache-Control': 'no-cache'
+            }
         }
     ).then((response) => response.json())
 
@@ -77,4 +80,27 @@ export async function getShippingFromClient(
             shipping: jsonResponse as IShipping
         })
     });
+}
+
+export async function deleteShipping(
+    Id_Env: number,
+    onPostAction:() => void
+) {
+    await fetch(
+        `http://pidya.es/gestion_envios/api/envios/${Id_Env}`,
+        {
+            method: 'DELETE',
+            headers: { 
+                "Access-Control-Allow-Origin": "*",
+                'Cache-Control': 'no-cache'
+            }, 
+            cache: "no-store"
+        }
+    ).then(response => {
+        if (response.status === 204) {
+            setTimeout(async () => {
+                onPostAction();
+            }, 1000);
+        }
+    })
 }

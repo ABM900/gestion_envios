@@ -33,17 +33,24 @@ export default function ShippingPage({
 		totalProducts: 0
 	});
 
-	useEffect(() => {
+	const loadData = () => {
 		getShippings(search, Number(offset)).then(result => {
 			setShippingData(result)
 			setDataLoaded(true)
 		});
-	}, [offset])
+	}
+
+	useEffect(() => loadData(), [dataLoaded])
 
 	const onAddShipping = () => {
 		setModalOpen(false);
 		toast({ title: "Registro creado!" });
 		router.push(`/?offset=0`, { scroll: false });
+	}
+
+	const onDeleteShipping = () => {
+		toast({ title: "Registro eliminado!" });
+		loadData();
 	}
 
 	return (
@@ -64,6 +71,7 @@ export default function ShippingPage({
 						shippings={shippingData.shippings}
 						offset={shippingData.newOffset ?? 0}
 						totalProducts={shippingData.totalProducts}
+						onDeleteAction={onDeleteShipping}
 					/>
 				</TabsContent>
 				<Modal

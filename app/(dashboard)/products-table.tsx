@@ -24,11 +24,13 @@ import { Button } from '@/components/ui/button';
 export function ProductsTable({
     shippings,
     offset,
-    totalProducts
+    totalProducts,
+    onDeleteAction
 }: {
     shippings: IShipping[];
     offset: number;
-    totalProducts: number;
+    totalProducts: number,
+    onDeleteAction(): void;
 }) {
     let router = useRouter();
     let productsPerPage = 20;
@@ -62,11 +64,17 @@ export function ProductsTable({
                             <TableHead>Receptor del envío</TableHead>
                             <TableHead>Teléfono del destinatario</TableHead>
                             <TableHead>Dirección del envío</TableHead>
+                            <TableHead></TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {shippings.map((shipping) => {
-                            return (<Shipping key={shipping.Id_Env} shipping={shipping} />)
+                            return (
+                            <Shipping
+                                key={shipping.Id_Env}
+                                shipping={shipping}
+                                onDeleteAction={onDeleteAction}
+                            />)
                         })}
                     </TableBody>
                 </Table>

@@ -1,15 +1,23 @@
 import { TableCell, TableRow } from '@/components/ui/table';
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { IShipping, getShippingFromClient } from '@/lib/db';
+import { IShipping, deleteShipping, getShippingFromClient } from '@/lib/db';
 import {
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components/ui/popover"
 import { useEffect, useState } from 'react';
+import { Trash2 } from 'lucide-react';
+import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from '@/components/ui/alert-dialog';
 
-export function Shipping({ shipping }: { shipping: IShipping }) {
+export function Shipping({
+	shipping,
+	onDeleteAction
+}: {
+	shipping: IShipping,
+	onDeleteAction(): void
+}) {
 	const [isOpen, setOpen] = useState<boolean>(false);
 	const [isLoading, setLoading] = useState<boolean>(false);
 	const [clientData, setClientData] = useState<IShipping | undefined>();
@@ -80,7 +88,6 @@ export function Shipping({ shipping }: { shipping: IShipping }) {
 						}
 					</PopoverContent>
 				</Popover>
-
 			</TableCell>
 			<TableCell>{shipping.Env_weight}</TableCell>
 			<TableCell>{shipping.Env_date}</TableCell>
@@ -90,6 +97,26 @@ export function Shipping({ shipping }: { shipping: IShipping }) {
 			<TableCell>{shipping.Env_receiver}</TableCell>
 			<TableCell>{shipping.Env_phone}</TableCell>
 			<TableCell>{shipping.Env_address}</TableCell>
+			<TableCell>
+				<AlertDialog>
+					<AlertDialogTrigger>
+						<Trash2 />
+					</AlertDialogTrigger>
+					<AlertDialogContent>
+						<AlertDialogHeader>
+							<AlertDialogTitle>Estás seguro de eliminar este registro?</AlertDialogTitle>
+						</AlertDialogHeader>
+						<AlertDialogFooter>
+							<AlertDialogCancel>
+								Cancelar
+							</AlertDialogCancel>
+							<AlertDialogAction onClick={() => deleteShipping(shipping.Id_Env, onDeleteAction)}>
+								Continuar
+							</AlertDialogAction>
+						</AlertDialogFooter>
+					</AlertDialogContent>
+				</AlertDialog>
+			</TableCell>
 		</TableRow>
 	);
 }
