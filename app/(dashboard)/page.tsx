@@ -7,7 +7,6 @@ import { ProductsTable } from './products-table';
 import { getShippings, IShipping } from '@/lib/db';
 import { Modal } from '@/components/ui/modal';
 import React, { useEffect, useState } from 'react';
-import { useForm } from "react-hook-form"
 import { useToast } from "@/hooks/use-toast";
 import { Toaster } from '@/components/ui/toaster';
 import { useRouter } from 'next/navigation';
@@ -21,18 +20,6 @@ export default function ShippingPage({
 	const { toast } = useToast();
 	let router = useRouter();
 	const [openModal, setModalOpen] = useState<boolean>(false);
-	const [newShipping, setNewShipping] = useState<IShipping>({
-		Id_Env: 0,
-		Env_clientName: '',
-		Env_date: '',
-		Env_phone: '',
-		Env_receiver: '',
-		Env_product: '',
-		Env_amount: 0,
-		Env_weight: 0,
-		Env_destination: '',
-		Env_address: ''
-	})
 	const search = searchParams.q ?? '';
 	const offset = searchParams.offset ?? 0;
 	const [dataLoaded, setDataLoaded] = useState<boolean>(false);
@@ -48,7 +35,6 @@ export default function ShippingPage({
 
 	useEffect(() => {
 		getShippings(search, Number(offset)).then(result => {
-			console.log("Hola");
 			setShippingData(result)
 			setDataLoaded(true)
 		});
