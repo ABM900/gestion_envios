@@ -9,7 +9,6 @@ import { Modal } from '@/components/ui/modal';
 import React, { useEffect, useState } from 'react';
 import { useToast } from "@/hooks/use-toast";
 import { Toaster } from '@/components/ui/toaster';
-import { useRouter } from 'next/navigation';
 import { AddShippingForm } from './addShipping';
 
 export default function ShippingPage({
@@ -18,10 +17,9 @@ export default function ShippingPage({
 	searchParams: { q: string; offset: string };
 }) {
 	const { toast } = useToast();
-	let router = useRouter();
 	const [openModal, setModalOpen] = useState<boolean>(false);
 	const search = searchParams.q ?? '';
-	const offset = searchParams.offset ?? 0;
+	const offset = Number(searchParams.offset ?? "0");
 	const [dataLoaded, setDataLoaded] = useState<boolean>(false);
 	const [shippingData, setShippingData] = useState<{
 		shippings: IShipping[];
@@ -34,18 +32,18 @@ export default function ShippingPage({
 	});
 
 	const loadData = () => {
-		getShippings(search, Number(offset)).then(result => {
+		getShippings(search, offset).then(result => {
 			setShippingData(result)
 			setDataLoaded(true)
 		});
 	}
 
-	useEffect(() => loadData(), [dataLoaded])
+	useEffect(() => loadData(), [searchParams])
 
 	const onAddShipping = () => {
 		setModalOpen(false);
 		toast({ title: "Registro creado!" });
-		router.push(`/?offset=0`, { scroll: false });
+		loadData();
 	}
 
 	const onDeleteShipping = () => {
@@ -69,7 +67,7 @@ export default function ShippingPage({
 				<TabsContent value="all">
 					<ProductsTable
 						shippings={shippingData.shippings}
-						offset={shippingData.newOffset ?? 0}
+						offset={offset}
 						totalProducts={shippingData.totalProducts}
 						onDeleteAction={onDeleteShipping}
 					/>

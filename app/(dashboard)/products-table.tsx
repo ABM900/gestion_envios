@@ -36,11 +36,11 @@ export function ProductsTable({
     let productsPerPage = 20;
 
     function prevPage() {
-        router.back();
+        router.push(`/?offset=${offset - 1}`, { scroll: false });
     }
 
     function nextPage() {
-        router.push(`/?offset=${offset}`, { scroll: false });
+        router.push(`/?offset=${offset + 1}`, { scroll: false });
     }
 
     return (
@@ -94,7 +94,7 @@ export function ProductsTable({
                             variant="ghost"
                             size="sm"
                             type="submit"
-                            disabled={offset === productsPerPage}
+                            disabled={offset === 0}
                         >
                             <ChevronLeft className="mr-2 h-4 w-4" />
                             Prev
@@ -104,7 +104,7 @@ export function ProductsTable({
                             variant="ghost"
                             size="sm"
                             type="submit"
-                            disabled={offset >= totalProducts}
+                            disabled={shippings.length !== productsPerPage}
                         >
                             Next
                             <ChevronRight className="ml-2 h-4 w-4" />
