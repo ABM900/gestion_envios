@@ -29,7 +29,7 @@ export async function getShippings(
     totalProducts: number;
 }> {
     let jsonResponse = await fetch(
-        `https://pidya.es/gestion_envios/api/envios/offset/${offset}`,
+        `https://pidya.es/gestion_envios/api/envios/offset/${offset}` + (search != '' ? `/${search}` : ''),
         {
             method: 'GET',
             headers: { 
@@ -87,7 +87,7 @@ export async function deleteShipping(
     onPostAction:() => void
 ) {
     await fetch(
-        `http://pidya.es/gestion_envios/api/envios/${Id_Env}`,
+        `https://pidya.es/gestion_envios/api/envios/${Id_Env}`,
         {
             method: 'DELETE',
             headers: { 
