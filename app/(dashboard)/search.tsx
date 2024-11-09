@@ -48,6 +48,9 @@ export function SearchInput() {
     function searchAction(data: z.infer<typeof FormSchema>) {
         console.log(data);
         let params = new URLSearchParams(searchParams);
+        params.delete('client');
+        params.delete('from');
+        params.delete('to');
         if (data.client !== undefined) {
             params.set('client', data.client);
         }
