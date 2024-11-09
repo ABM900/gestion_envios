@@ -10,16 +10,19 @@ import React, { useEffect, useState } from 'react';
 import { useToast } from "@/hooks/use-toast";
 import { Toaster } from '@/components/ui/toaster';
 import { AddShippingForm } from './addShipping';
+import { SearchInput } from './search';
 
 export default function ShippingPage({
 	searchParams
 }: {
-	searchParams: { q: string; offset: string };
+	searchParams: { client: string; offset: string, from: string, to: string };
 }) {
 	const { toast } = useToast();
 	const [openModal, setModalOpen] = useState<boolean>(false);
-	const search = searchParams.q ?? '';
+	const search = searchParams.client ?? '';
 	const offset = Number(searchParams.offset ?? "0");
+	const from = searchParams.from ?? '';
+	const to = searchParams.to ?? '';
 	const [dataLoaded, setDataLoaded] = useState<boolean>(false);
 	const [shippingData, setShippingData] = useState<{
 		shippings: IShipping[];
@@ -32,7 +35,7 @@ export default function ShippingPage({
 	});
 
 	const loadData = () => {
-		getShippings(search, offset).then(result => {
+		getShippings(search, offset, from, to).then(result => {
 			setShippingData(result)
 			setDataLoaded(true)
 		});
@@ -54,8 +57,9 @@ export default function ShippingPage({
 	return (
 		<div className='overflow-hidden'>
 			<Tabs defaultValue="all">
-				<div className="flex items-center">
-					<div className="ml-auto flex items-center gap-2">
+				<div className="flex items-center justify-between">
+					<SearchInput />
+					<div className="ml-auto flex items-center">
 						<Button size="sm" className="h-8 gap-1" type='button' onClick={() => setModalOpen(true)}>
 							<PlusCircle className="h-3.5 w-3.5" />
 							<span className="sr-only sm:not-sr-only sm:whitespace-nowrap">

@@ -1,3 +1,4 @@
+import { param } from 'drizzle-orm';
 import {
     pgEnum,
 } from 'drizzle-orm/pg-core';
@@ -22,14 +23,22 @@ export type IShipping = {
 
 export async function getShippings(
     search: string,
-    offset: number
+    offset: number,
+    from: string,
+    to: string
 ): Promise<{
     shippings: IShipping[];
     newOffset: number | null;
     totalProducts: number;
 }> {
+    let params = [
+        search != "" ? `client=${search}` : search, 
+        to != "" ? `to=${to}` : to, 
+        from != "" ? `from=${from}` : from
+    ];
+    params = params.filter(it => it != "");
     let jsonResponse = await fetch(
-        `https://pidya.es/gestion_envios/api/envios/offset/${offset}` + (search != '' ? `/${search}` : ''),
+        `https://gestionenvios.pidya.es/api/envios/offset/${offset}?` + params.join("&"),
         {
             method: 'GET',
             headers: { 
@@ -50,7 +59,7 @@ export async function getShippings(
 
 export function addShipping(shipping: IShipping, onPostAction: void) {
     fetch(
-        'https://pidya.es/gestion_envios/api/envios',
+        'https://gestionenvios.pidya.es/api/envios',
         {
             method: 'POST',
             headers: {
@@ -68,7 +77,7 @@ export async function getShippingFromClient(
     shipping: IShipping;
 }> {
     let jsonResponse = await fetch(
-        `https://pidya.es/gestion_envios/api/envios/client/${clientName}`,
+        `https://gestionenvios.pidya.es/api/envios/client/${clientName}`,
         {
             method: 'GET',
             headers: { "Access-Control-Allow-Origin": "*" }
@@ -87,7 +96,7 @@ export async function deleteShipping(
     onPostAction:() => void
 ) {
     await fetch(
-        `https://pidya.es/gestion_envios/api/envios/${Id_Env}`,
+        `https://gestionenvios.pidya.es/api/envios/${Id_Env}`,
         {
             method: 'DELETE',
             headers: { 
