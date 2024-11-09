@@ -64,12 +64,12 @@ export function SearchInput() {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(searchAction)} className="flex items-center gap-4 p-2">
+            <form onSubmit={form.handleSubmit(searchAction)} className="flex flex-col md:flex-row md:items-center gap-4 py-10 md:p-2">
                 <FormField
                     control={form.control}
                     name="client"
                     render={({ field }) => (
-                        <FormItem className="relative flex items-center md:grow-0">
+                        <FormItem className="relative md:flex items-center md:grow-0">
                             <Search className="absolute left-2.5 top-[.75rem] h-4 w-4 text-muted-foreground" />
                             <Input
                                 {...field}
@@ -90,7 +90,7 @@ export function SearchInput() {
                                         <Button
                                             variant={"outline"}
                                             className={cn(
-                                                "w-[240px] pl-3 text-left font-normal rounded-lg",
+                                                "md:w-[240px] pl-3 text-left font-normal rounded-lg",
                                                 !field.value && "text-muted-foreground"
                                             )}
                                         >
@@ -127,7 +127,7 @@ export function SearchInput() {
                                         <Button
                                             variant={"outline"}
                                             className={cn(
-                                                "w-[240px] pl-3 text-left font-normal rounded-lg",
+                                                "md:w-[240px] pl-3 text-left font-normal rounded-lg",
                                                 !field.value && "text-muted-foreground"
                                             )}
                                         >

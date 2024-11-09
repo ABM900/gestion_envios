@@ -11,6 +11,8 @@ import { useToast } from "@/hooks/use-toast";
 import { Toaster } from '@/components/ui/toaster';
 import { AddShippingForm } from './addShipping';
 import { SearchInput } from './search';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Filter } from 'lucide-react';
 
 export default function ShippingPage({
 	searchParams
@@ -58,7 +60,12 @@ export default function ShippingPage({
 		<div className='overflow-hidden'>
 			<Tabs defaultValue="all">
 				<div className="flex items-center justify-between">
-					<SearchInput />
+					<div className="hidden md:inline-block">
+						<SearchInput />
+					</div>
+					<div className='visible md:invisible'>
+						<MobileNav/>
+					</div>
 					<div className="ml-auto flex items-center">
 						<Button size="sm" className="h-8 gap-1" type='button' onClick={() => setModalOpen(true)}>
 							<PlusCircle className="h-3.5 w-3.5" />
@@ -86,5 +93,22 @@ export default function ShippingPage({
 				<Toaster />
 			</Tabs>
 		</div>
+	);
+}
+
+function MobileNav() {
+	return (
+		<Sheet>
+			<SheetTrigger asChild>
+				<Button size="icon" variant="outline" className="sm:hidden">
+					<Filter className="h-3.5 w-3.5" />
+				</Button>
+			</SheetTrigger>
+			<SheetContent side="left" className="sm:max-w-xs">
+				<nav className="grid gap-6 text-lg font-medium">
+					<SearchInput/>
+				</nav>
+			</SheetContent>
+		</Sheet>
 	);
 }
